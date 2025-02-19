@@ -1,0 +1,186 @@
+# SoFar: Language-Grounded Orientation Bridges Spatial Reasoning and Object Manipulation
+
+We present SoFar, the first 6-DoF system for spatial reasoning and robotic manipulation.
+
+We introduce the concept of semantic orientation, representing the object orientation condition on open vocabulary language.
+
+[Zekun Qi](https://qizekun.github.io/)*, [Wenyao Zhang](https://qizekun.github.io/)*, [Yufei Ding](https://selina2023.github.io/)*, [Runpei Dong](https://runpeidong.web.illinois.edu/), [Xinqiang Yu](), [Jingwen Li](), [Lingyun Xu](), [Baoyu Li](https://boey-li.github.io/baoyuli.github.io/), [Xialin He](https://xialin-he.github.io/), [Guofan Fan](https://github.com/Asterisci/), [Jiazhao Zhang](https://jzhzhang.github.io/), [Jiawei He](https://jiaweihe.com/), [Jiayuan Gu](https://jiayuan-gu.github.io/), [Xin Jin](http://home.ustc.edu.cn/~jinxustc/), [Kaisheng Ma](http://group.iiis.tsinghua.edu.cn/~maks/leader.html), [Zhizheng Zhang](https://scholar.google.com/citations?user=X7M0I8kAAAAJ&hl=en), [He Wang](https://hughw19.github.io/) and [Li Yi](https://ericyi.github.io)
+
+[![Project Page](https://img.shields.io/badge/Project-Page-Green.svg)](https://qizekun.github.io/sofar/)
+[![Paper PDF](https://img.shields.io/badge/Paper-PDF-orange.svg)](https://arxiv.org/abs/2402.17766)
+[![Hugging Face](https://img.shields.io/badge/🤗-Hugging_Face-yellow.svg)](https://huggingface.co/collections/qizekun/sofar-67b511129d3146d28cea9920)
+[![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/LICENSE)
+[![Data License](https://img.shields.io/badge/Data%20License-CC%20By%20NC%204.0-red.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/DATA_LICENSE)
+
+<div style="text-align: center;">
+    <img src="assets/teaser.jpg" width=100% >
+</div>
+
+## Contents
+- [Install](#quick-start)
+- [Dataset](./datasets/DATASET.md)
+- [SoFar](#sofar)
+  - [Demo](#demo)
+  - [Evaluation](#evaluation)
+- [PointSO](#pointso)
+  - [Pretrain](#pretrain)
+  - [Finetune](#finetune)
+- [OrienText300K](#orientext300k)
+- [Open6DOR V2](#open6dor-v2)
+- [6-DoF SpatialBench](#6-dof-spatialbench)
+- [TODO](#todo)
+
+## Quick-Start
+Setup environment:
+```bash
+conda create -n sofar python=3.10 -y
+conda activate sofar
+
+git clone https://github.com/qizekun/SoFar.git
+cd SoFar
+pip install -e .
+pip install -e segmentation/SAM
+```
+
+Download checkpoints:
+```bash
+mkdir checkpoints & cd checkpoints
+# Florence-2
+huggingface-cli download microsoft/Florence-2-base
+# Segment Anything
+wget -c https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+```
+More detailed installation instructions can be found in [INSTALL.md](INSTALL.md).
+
+## SoFar
+Set OpenAI key:
+```bash
+export OPENAI_API_KEY=your_openai_key
+```
+
+### Demo
+#### 6-DoF Object Rearrangement Demo
+```bash
+python scripts/open6dor_demo.py
+```
+#### Object Manipulation Demo
+```bash
+python scripts/manipulation_demo.py
+```
+#### Spatial Visual Question Answering Demo
+```bash
+python scripts/vqa_demo.py
+```
+
+### Evaluation
+
+#### 6-DoF Object Rearrangement Perception on Open6DOR V2
+| Method       | Position Track |          | Rotation Track |          |          | 6-DoF Track |
+|--------------|----------------|----------|----------------|----------|----------|-------------|
+|              | Level 0        | Level 1  | Level 0        | Level 1  | Level 2  | Overall     |
+| GPT-4V       | 46.8           | 39.1     | 9.1            | 6.9      | 11.7     | -           |
+| Dream2Real   | 17.2           | 11.0     | 37.3           | 27.6     | 26.2     | 13.5        |
+| VoxPoser     | 35.6           | 21.7     | -              | -        | -        | -           |
+| Open6DOR-GPT | 78.6           | 60.3     | 45.7           | 32.5     | 49.8     | 35.6        |
+| SoFaR-LLaVA  | 86.3           | 57.9     | 62.5           | 30.2     | 67.1     | 48.2        |
+| **SoFar**    | **96.0**       | **81.5** | **68.6**       | **42.2** | **70.1** | **48.7**    |
+
+Download the refined dataset following [DATASET.md](./datasets/DATASET.md).
+
+```bash
+# Predict on Open6DOR dataset
+python open6dor_eval_perception.py
+# Evaluate the metrics
+python eval_open6dor.py
+```
+#### 6-DoF Spatial VQA on 6-DoF SpatialBench
+| Method        | Position (rel.)   | Position (abs.)   | Orientation (rel.)   | Orientation (abs.)   | Total      |
+|---------------|-------------------|-------------------|----------------------|----------------------|------------|
+| GPT-4V        | 37.7              | 32.7              | 36.7                 | 27.5                 | 33.9       |
+| GPT-4o        | 49.4              | 28.4              | 44.2                 | 25.8                 | 36.2       |
+| SpaceLLaVA    | 32.4              | 30.5              | 30.9                 | 24.9                 | 28.2       |
+| SpaceMantis   | 33.6              | 29.2              | 27.2                 | 25.2                 | 28.8       |
+| SpatialBot    | 50.9              | 21.6              | 39.6                 | 22.9                 | 33.7       |
+| RoboPoint     | 43.8              | 30.8              | 33.8                 | 25.8                 | 33.5       |
+| **SoFar**     | **59.6**          | **33.8**          | **54.6**             | **31.3**             | **43.9**   |
+
+Download the refined dataset following [DATASET.md](./datasets/DATASET.md).
+```bash
+python spatialbench/eval_spatialbench.py
+```
+
+## PointSO
+### Pretrain
+Download the PointMAE as initialization.
+```bash
+wget https://github.com/Pang-Yatian/Point-MAE/releases/download/main/pretrain.pth -P orientation/
+```
+Perpare the OrienText300K dataset following [DATASET.md](./datasets/DATASET.md).
+```bash
+cd orientation
+sh train_ddp.sh
+```
+Perpare the Open6DOR finetuning dataset following [DATASET.md](./datasets/DATASET.md).
+Finetune PointSO will significantly improve the performance on Open6DOR rotation track & 6-DoF track.
+```bash
+### Finetune
+```bash
+cd orientation
+sh train_ddp_ft.sh
+```
+
+## Datasets & Benchmarks
+### OrienText300K
+We obtained the OrienText300K dataset by rendering multi-views of Objaverse and annotating with ChatGPT, including the filtering of Objaverse 1.0, 350K orientation-text pairs, and 8M multi-view images.  The complete multi-view data will be uploaded.
+
+In addition, if your work requires filtering 3D data, the [attributes.zip](https://huggingface.co/datasets/qizekun/OrienText300K/blob/main/attributes.zip) we use to filter OrienText300K may be helpful for your work. 
+We provide multi-view annotations for each object in Objaverse across multiple dimensions, removing low-quality, meaningless, noise, and 3D assets containing useless data.
+
+<div style="text-align: center;">
+    <img src="assets/data_construction.jpg" width=100% >
+</div>
+
+Data open source on [Huggingface OrienteText300K](https://huggingface.co/datasets/qizekun/OrienText300K).
+### Open6DOR V2
+We removed the erroneous data from Open6DOR V1 and eliminated parts that required manual judgment to facilitate replication.
+Open6DOR V2 contains ~4500 tasks for 6-DoF object rearrangement & spatial relationship evaluation.
+
+Data open source on [Huggingface Open6DOR V2](https://huggingface.co/datasets/qizekun/Open6DOR_V2).
+
+### 6-DoF SpatialBench
+Previous spatial perception LLMs mainly focused on operations of positional relationships, such as left-right, near-far, size, and counting, etc. 
+In actual object manipulation, the orientation of the object is also a very important factor. 
+Therefore, we proposed a new 6-DoF spatial perception benchmark dataset for evaluating the model's reasoning capabilities in position, orientation, and position-orientation relationships. 
+We evaluated existing spatial perception models on this benchmark dataset.
+
+Data open source on [Huggingface 6-DoF SpatialBench](https://huggingface.co/datasets/qizekun/6DoF-SpatialBench).
+
+## TODO
+- [ ] Release the evaluation code for Simpler-Env for Google Robot & Widow-X. (About 1 week)
+- [ ] Release the evaluation code for Open6DOR-Libero. (About 2 week)
+- [ ] Release more version of PointSO. (About 2 week)
+- [ ] Release the improved version of OrienText300K. (About 1 month)
+- [ ] Release gradio demo for SoFar & PointSO. (About 1 month)
+- [ ] Release the Objaverse-XL version dataset & PointSO. (Maybe 2 month or more)
+
+## Contact
+If you have any questions related to the code or the paper, feel free to email Zekun (`qizekun@gmail.com`). 
+
+
+## Acknowledgements
+- [Segment Anything](https://github.com/facebookresearch/segment-anything)
+- [ReCon](https://github.com/qizekun/ReCon)
+- [Florence-2](https://github.com/IDEA-Research/Grounded-SAM-2)
+- [LLaVA](https://github.com/haotian-liu/LLaVA)
+
+
+## Citation
+If you find SoFar, PointSO, OrienText300K, Open6DOR V2 or 6-DoF SpatialBench helpful for your research, please consider citing the following BibTeX entry.
+```BibTex
+@article{qi2024shapellm,
+  author = {Qi, Zekun and Dong, Runpei and Zhang, Shaochen and Geng, Haoran and Han, Chunrui and Ge, Zheng and Yi, Li and Ma, Kaisheng},
+  title = {ShapeLLM: Universal 3D Object Understanding for Embodied Interaction},
+  journal = {arXiv preprint arXiv:2402.17766},
+  year = {2024}
+}
+```
