@@ -96,6 +96,13 @@ python open6dor_eval_perception.py
 # Evaluate the metrics
 python eval_open6dor.py
 ```
+
+Note that Open6DOR uses the observer's perspective, which means it is oriented relative to the robotic arm. 
+This implies that the X-axis and Y-axis of the observer coordinate system are opposite to those of the robotic arm's base coordinate system. 
+This is reflected in the system prompt: in the observer coordinate system, the Y-axis extends from left to right, and the X-axis extends from far to near.
+
+Additionally, for the Open6DOR task, we recommend using small_finetune.pth as the orientation model in [pointso.py](./serve/pointso.py) to achieve better performance.
+
 #### 6-DoF Spatial VQA on 6-DoF SpatialBench
 | Method        | Position (rel.)   | Position (abs.)   | Orientation (rel.)   | Orientation (abs.)   | Total      |
 |---------------|-------------------|-------------------|----------------------|----------------------|------------|

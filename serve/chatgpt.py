@@ -8,6 +8,7 @@ from openai import OpenAI
 from serve.system_prompts import *
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# gemini-2.0-flash-exp is comparable and even better than the gpt-4o
 
 
 def encode_image(image_path):
@@ -47,7 +48,7 @@ def long_horizon_planning(text, img):
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=1024,
                 timeout=30,
@@ -99,7 +100,7 @@ def object_parsing(text, img):
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=1024,
                 timeout=30,
@@ -157,7 +158,7 @@ def vqa_parsing(text, img):
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=4096,
                 timeout=30,
@@ -234,7 +235,7 @@ def manip_parsing(text, img):
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=4096,
                 timeout=30,
@@ -311,7 +312,7 @@ def open6dor_parsing(text, img):
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=4096,
                 timeout=30,
@@ -402,7 +403,7 @@ def open6dor_spatial_reasoning(img, instruction, picked_object_info, other_objec
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=4096,
                 timeout=30,
@@ -464,7 +465,7 @@ def manip_spatial_reasoning(img, instruction, scene_graph):
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=4096,
                 timeout=30,
@@ -559,7 +560,7 @@ def vqa_spatial_reasoning(img, instruction, scene_graph, eval=False):
     while True:
         try:
             completion = client.chat.completions.create(
-                model="gemini-2.0-flash-exp",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=4096,
                 timeout=30
