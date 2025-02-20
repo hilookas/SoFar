@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from serve import PointSO
+from serve import pointso
 from serve.utils import remove_outliers
 
 
@@ -40,7 +40,7 @@ def open6dor_scene_graph(image, pcd, mask, info, object_names, orientation_model
     orientation_str = {}
     direction_attributes = info["direction_attributes"]
     if len(direction_attributes) > 0:
-        pred = PointSO.pred_orientation(orientation_model, colored_object_pcd, direction_attributes)
+        pred = pointso.pred_orientation(orientation_model, colored_object_pcd, direction_attributes)
         for j, attribute in enumerate(direction_attributes):
             orientation[attribute] = pred[j]
             orientation_str[attribute] = f"direction vector: ({pred[j][0]:.2f}, {pred[j][1]:.2f}, {pred[j][2]:.2f})"
@@ -147,7 +147,7 @@ def open6dor_scene_graph_for_mismatch_pcd(image, pcd, mask, info, object_names, 
     orientation_str = {}
     direction_attributes = info["direction_attributes"]
     if len(direction_attributes) > 0:
-        pred = PointSO.pred_orientation(orientation_model, segmented_object.reshape(-1, 6), direction_attributes)
+        pred = pointso.pred_orientation(orientation_model, segmented_object.reshape(-1, 6), direction_attributes)
         for j, attribute in enumerate(direction_attributes):
             orientation[attribute] = pred[j]
             orientation_str[attribute] = f"direction vector: ({pred[j][0]:.2f}, {pred[j][1]:.2f}, {pred[j][2]:.2f})"
@@ -242,7 +242,7 @@ def get_scene_graph(image, pcd, mask, info, object_names, orientation_model, out
         orientation_str = {}
         direction_attributes = info[object_names[i]]
         if len(direction_attributes) > 0:
-            pred = PointSO.pred_orientation(orientation_model, colored_object_pcd, direction_attributes)
+            pred = pointso.pred_orientation(orientation_model, colored_object_pcd, direction_attributes)
             for j, attribute in enumerate(direction_attributes):
                 orientation[attribute] = pred[j]
                 orientation_str[attribute] = f"direction vector: ({pred[j][0]:.2f}, {pred[j][1]:.2f}, {pred[j][2]:.2f})"

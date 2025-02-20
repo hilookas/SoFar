@@ -50,8 +50,8 @@ huggingface-cli download microsoft/Florence-2-base
 # Segment Anything
 wget -c https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
 # PointSO
-wget -c https://huggingface.co/qizekun/PointSO/blob/main/small.pth
-wget -c https://huggingface.co/qizekun/PointSO/blob/main/base_finetune.pth
+wget -c https://huggingface.co/qizekun/PointSO/resolve/main/small.pth
+wget -c https://huggingface.co/qizekun/PointSO/resolve/main/base_finetune.pth
 ```
 More detailed installation instructions can be found in [INSTALL.md](INSTALL.md).
 

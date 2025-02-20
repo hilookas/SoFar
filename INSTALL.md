@@ -33,12 +33,16 @@ pip install flash-attn --no-build-isolation
 Download checkpoints:
 
 Mainly we are using Florance-2 + Segment Anything for open-vocabulary object segmentation.
+Note that Florance-2 performs poorly on predicting small objects and multi-objects, and Grounding DINO has better effects on these special tasks.
 ```bash
 cd checkpoints
 # Florence-2
 huggingface-cli download microsoft/Florence-2-base
 # Segment Anything
 wget -c https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+# PointSO
+wget -c https://huggingface.co/qizekun/PointSO/resolve/main/small.pth
+wget -c https://huggingface.co/qizekun/PointSO/resolve/main/base_finetune.pth
 ```
 Optional, download other checkpoints:
 ```bash
