@@ -4,10 +4,10 @@ import warnings
 import numpy as np
 from PIL import Image
 
+from serve import pointso as orientation
 from depth import metric3dv2 as depth_model
-from segmentation import sam, florence as detection
 from serve.scene_graph import get_scene_graph
-from serve.PointOFM import get_model as get_pointofm_model
+from segmentation import sam, florence as detection
 from serve.chatgpt import vqa_parsing, vqa_spatial_reasoning
 
 warnings.filterwarnings("ignore")
@@ -23,6 +23,7 @@ if __name__ == "__main__":
     print("Load models...")
     detection_model = detection.get_model()
     sam_model = sam.get_model()
+    orientation_model = orientation.get_model()
     metriced_model = depth_model.get_model()
 
     print("Start object parsing...")
@@ -39,7 +40,6 @@ if __name__ == "__main__":
     np.save(os.path.join(output_folder, "scene.npy"), np.concatenate([pcd, np.array(image)], axis=-1).reshape(-1, 6))
 
     print("Generate scene graph...")
-    orientation_model = get_pointofm_model()
     scene_graph, _ = get_scene_graph(image, pcd, mask, info, object_names, orientation_model, output_folder=output_folder)
 
     print("objects info:")

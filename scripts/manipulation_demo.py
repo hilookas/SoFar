@@ -5,9 +5,9 @@ import numpy as np
 from PIL import Image
 
 from depth.utils import depth2pcd
-from segmentation import sam, florence as detection
+from serve import pointso as orientation
 from serve.scene_graph import get_scene_graph
-from serve.PointOFM import get_model as get_pointofm_model
+from segmentation import sam, florence as detection
 from serve.chatgpt import manip_parsing, manip_spatial_reasoning
 from serve.utils import generate_rotation_matrix, remove_outliers
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     print("Load models...")
     detection_model = detection.get_model()
     sam_model = sam.get_model()
-    orientation_model = get_pointofm_model()
+    orientation_model = orientation.get_model()
 
     print("Start object parsing...")
     info = manip_parsing(prompt, image)

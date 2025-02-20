@@ -4,17 +4,21 @@ import random
 import numpy as np
 from easydict import EasyDict
 from orientation.datasets.utils import pc_norm
-from orientation.models.PointOFM import PointOFM
+from orientation.models.PointSO import PointSO
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-CFG_PATH = "orientation/cfgs/train/tiny.yaml"
-CHECKPOINT_PATH = "checkpoints/semantic_orientation_tiny.pth"
+CFG_PATH = "orientation/cfgs/train/small.yaml"
+CHECKPOINT_PATH = "checkpoints/small.pth"
+
+# for Open6DOR tasks
+# CFG_PATH = "orientation/cfgs/train/base.yaml"
+# CHECKPOINT_PATH = "checkpoints/base_finetune.pth"
 
 
 def get_model():
     with open(CFG_PATH, 'r') as f:
         config = EasyDict(yaml.load(f, Loader=yaml.FullLoader)).model
-    model = PointOFM(config)
+    model = PointSO(config)
     model.load_state_dict(torch.load(CHECKPOINT_PATH, map_location=DEVICE)["base_model"], strict=True)
     model.to(DEVICE).eval()
     return model

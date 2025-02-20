@@ -49,6 +49,9 @@ mkdir checkpoints & cd checkpoints
 huggingface-cli download microsoft/Florence-2-base
 # Segment Anything
 wget -c https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+# PointSO
+wget -c https://huggingface.co/qizekun/PointSO/blob/main/small.pth
+wget -c https://huggingface.co/qizekun/PointSO/blob/main/base_finetune.pth
 ```
 More detailed installation instructions can be found in [INSTALL.md](INSTALL.md).
 
@@ -120,10 +123,9 @@ Perpare the OrienText300K dataset following [DATASET.md](./datasets/DATASET.md).
 cd orientation
 sh train_ddp.sh
 ```
+### Finetune
 Perpare the Open6DOR finetuning dataset following [DATASET.md](./datasets/DATASET.md).
 Finetune PointSO will significantly improve the performance on Open6DOR rotation track & 6-DoF track.
-```bash
-### Finetune
 ```bash
 cd orientation
 sh train_ddp_ft.sh

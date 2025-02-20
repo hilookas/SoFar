@@ -3,8 +3,9 @@ import warnings
 import numpy as np
 from PIL import Image
 from depth.utils import depth2pcd
+from serve import pointso as orientation
 from segmentation import sam, grounding_dino as detection
-from serve.PointOFM import get_model as get_pointofm_model, pred_orientation
+
 
 warnings.filterwarnings("ignore")
 os.makedirs("output", exist_ok=True)
@@ -36,7 +37,7 @@ if __name__ == "__main__":
     print("Load models...")
     detection_model = detection.get_model()
     sam_model = sam.get_model()
-    orientation_model = get_pointofm_model()
+    orientation_model = orientation.get_model()
 
     print("Start Segment Anything...")
     detections = detection.get_detections(image, navigate_obj, detection_model, output_folder=output_folder, single=True)
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     center = colored_object_pcd.mean(axis=0)[:3] / 1000
     print(f"Obj Center: {center}")
 
-    orientation = pred_orientation(orientation_model, colored_object_pcd, instruction)
+    orientation = orientation.pred_orientation(orientation_model, colored_object_pcd, instruction)
     print(f"Predict orientation: {instruction}--{orientation}")
     
     vector = orientation[0]

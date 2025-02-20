@@ -10,7 +10,7 @@ from orientation.utils.logger import *
 
 
 @MODELS.register_module()
-class PointOFM(nn.Module):
+class PointSO(nn.Module):
     def __init__(self, config, **kwargs):
         super().__init__()
         self.config = config

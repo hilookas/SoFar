@@ -5,9 +5,9 @@ import numpy as np
 from PIL import Image
 from tqdm import tqdm
 from depth.utils import depth2pcd
+from serve import pointso as orientation
 from segmentation import sam, grounding_dino as detection
 from serve.visualization import draw_vector_with_text, save_images_as_video
-from serve.PointOFM import get_model as get_pointofm_model, pred_orientation
 
 warnings.filterwarnings("ignore")
 os.makedirs("output", exist_ok=True)
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print("Load models...")
     detection_model = detection.get_model()
     sam_model = sam.get_model()
-    orientation_model = get_pointofm_model()
+    orientation_model = orientation.get_model()
 
     print("Start inference...")
     output_image_files = []
@@ -49,7 +49,7 @@ if __name__ == "__main__":
         colored_object_pcd = np.concatenate((segmented_object.reshape(-1, 3), segmented_image.reshape(-1, 3)), axis=-1)
         center = colored_object_pcd.mean(axis=0)[:3] / 1000
 
-        orientation = pred_orientation(orientation_model, colored_object_pcd, instruction)
+        orientation = orientation.pred_orientation(orientation_model, colored_object_pcd, instruction)
         vector = np.array(orientation[0])
         vector[1] = 0
         if history_vector is None:

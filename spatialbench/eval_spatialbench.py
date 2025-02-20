@@ -4,10 +4,10 @@ import warnings
 from PIL import Image
 from tqdm import tqdm
 
+from serve import pointso as orientation
+from serve.scene_graph import get_scene_graph
 from depth import metric3dv2 as depth_esti_model
 from segmentation import sam, florence as detection
-from serve.scene_graph import get_scene_graph
-from serve.PointOFM import get_model as get_pointofm_model
 from serve.chatgpt import vqa_parsing, vqa_spatial_reasoning
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     detection_model = detection.get_model()
     sam_model = sam.get_model()
     depth_model = depth_esti_model.get_model()
-    orientation_model = get_pointofm_model()
+    orientation_model = orientation.get_model()
 
     info_list = json.load(open('datasets/6dof_spatialbench/spatial_data.json'))
     total = len(info_list)

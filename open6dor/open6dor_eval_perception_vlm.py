@@ -7,10 +7,10 @@ from PIL import Image
 from tqdm import tqdm
 
 from serve import vlm_inference
-from segmentation import sam, florence as detection
+from serve import pointso as orientation
 from utils import preprocess_open6dor_image
 from serve.scene_graph import open6dor_scene_graph
-from serve.PointOFM import get_model as get_pointofm_model
+from segmentation import sam, florence as detection
 from serve.utils import generate_rotation_matrix, get_point_cloud_from_rgbd
 
 warnings.filterwarnings("ignore")
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
     detection_model = detection.get_model()
     sam_model = sam.get_model()
-    orientation_model = get_pointofm_model()
+    orientation_model = orientation.get_model()
 
     for p in tqdm(dataset_paths):
         process_dataset(p)

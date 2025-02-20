@@ -27,7 +27,7 @@ dataset:
       noise: False
 
 model:
-  NAME: PointOFM
+  NAME: PointSO
   group_size: 32
   num_group: 512
   embed_dim: 512
