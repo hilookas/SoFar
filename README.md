@@ -4,7 +4,7 @@ We present SoFar, the first 6-DoF system for spatial reasoning and robotic manip
 
 We introduce the concept of semantic orientation, representing the object orientation condition on open vocabulary language.
 
-[Zekun Qi](https://qizekun.github.io/) *, [Wenyao Zhang]() *, [Yufei Ding](https://selina2023.github.io/) *, [Runpei Dong](https://runpeidong.web.illinois.edu/), [Xinqiang Yu](), [Jingwen Li](), [Lingyun Xu](), [Baoyu Li](https://boey-li.github.io/baoyuli.github.io/), [Xialin He](https://xialin-he.github.io/), [Guofan Fan](https://github.com/Asterisci/), [Jiazhao Zhang](https://jzhzhang.github.io/), [Jiawei He](https://jiaweihe.com/), [Jiayuan Gu](https://jiayuan-gu.github.io/), [Xin Jin](http://home.ustc.edu.cn/~jinxustc/), [Kaisheng Ma](http://group.iiis.tsinghua.edu.cn/~maks/leader.html), [Zhizheng Zhang](https://scholar.google.com/citations?user=X7M0I8kAAAAJ&hl=en), [He Wang](https://hughw19.github.io/) and [Li Yi](https://ericyi.github.io/).
+[Zekun Qi](https://qizekun.github.io/) *, [Wenyao Zhang]() *, [Yufei Ding](https://selina2023.github.io/) *, [Runpei Dong](https://runpeidong.web.illinois.edu/), [Xinqiang Yu](), [Jingwen Li](), [Lingyun Xu](), [Baoyu Li](https://baoyuli.github.io/), [Xialin He](https://xialin-he.github.io/), [Guofan Fan](https://github.com/Asterisci/), [Jiazhao Zhang](https://jzhzhang.github.io/), [Jiawei He](https://jiaweihe.com/), [Jiayuan Gu](https://jiayuan-gu.github.io/), [Xin Jin](http://home.ustc.edu.cn/~jinxustc/), [Kaisheng Ma](http://group.iiis.tsinghua.edu.cn/~maks/leader.html), [Zhizheng Zhang](https://scholar.google.com/citations?user=X7M0I8kAAAAJ&hl=en), [He Wang](https://hughw19.github.io/) and [Li Yi](https://ericyi.github.io/).
 
 [![Project Page](https://img.shields.io/badge/Project-Page-Green.svg)](https://qizekun.github.io/sofar/)
 [![Paper PDF](https://img.shields.io/badge/Paper-PDF-orange.svg)](https://arxiv.org/abs/2502.13143)
@@ -60,6 +60,7 @@ Set OpenAI key:
 ```bash
 export OPENAI_API_KEY=your_openai_key
 ```
+Note that gemini-2.0-flash-exp is comparable and even better than the gpt-4o, especially the Open6DOR task.
 
 ### Demo
 #### 6-DoF Object Rearrangement Demo
@@ -85,7 +86,7 @@ python scripts/vqa_demo.py
 | Dream2Real   | 17.2           | 11.0     | 37.3           | 27.6     | 26.2     | 13.5        |
 | VoxPoser     | 35.6           | 21.7     | -              | -        | -        | -           |
 | Open6DOR-GPT | 78.6           | 60.3     | 45.7           | 32.5     | 49.8     | 35.6        |
-| SoFaR-LLaVA  | 86.3           | 57.9     | 62.5           | 30.2     | 67.1     | 48.2        |
+| SoFar-LLaVA  | 86.3           | 57.9     | 62.5           | 30.2     | 67.1     | 40.3        |
 | **SoFar**    | **96.0**       | **81.5** | **68.6**       | **42.2** | **70.1** | **48.7**    |
 
 Download the refined dataset following [DATASET.md](./datasets/DATASET.md).
