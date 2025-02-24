@@ -16,6 +16,7 @@ We introduce the concept of semantic orientation, representing the object orient
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/robot-manipulation-on-simpler-env)](https://paperswithcode.com/sota/robot-manipulation-on-simpler-env?p=sofar-language-grounded-orientation-bridges)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/robot-manipulation-on-simplerenv-widow-x)](https://paperswithcode.com/sota/robot-manipulation-on-simplerenv-widow-x?p=sofar-language-grounded-orientation-bridges)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/spatial-reasoning-on-6-dof-spatialbench)](https://paperswithcode.com/sota/spatial-reasoning-on-6-dof-spatialbench?p=sofar-language-grounded-orientation-bridges)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/spatial-reasoning-on-embspatial-bench)](https://paperswithcode.com/sota/spatial-reasoning-on-embspatial-bench?p=sofar-language-grounded-orientation-bridges)
 
 <div style="text-align: center;">
     <img src="assets/teaser.jpg" width=100% >
