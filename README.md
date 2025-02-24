@@ -12,6 +12,11 @@ We introduce the concept of semantic orientation, representing the object orient
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/LICENSE)
 [![Data License](https://img.shields.io/badge/Data%20License-CC%20By%20NC%204.0-red.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/DATA_LICENSE)
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/object-rearrangement-on-open6dor-v2)](https://paperswithcode.com/sota/object-rearrangement-on-open6dor-v2?p=sofar-language-grounded-orientation-bridges)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/robot-manipulation-on-simpler-env)](https://paperswithcode.com/sota/robot-manipulation-on-simpler-env?p=sofar-language-grounded-orientation-bridges)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/robot-manipulation-on-simplerenv-widow-x)](https://paperswithcode.com/sota/robot-manipulation-on-simplerenv-widow-x?p=sofar-language-grounded-orientation-bridges)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sofar-language-grounded-orientation-bridges/spatial-reasoning-on-6-dof-spatialbench)](https://paperswithcode.com/sota/spatial-reasoning-on-6-dof-spatialbench?p=sofar-language-grounded-orientation-bridges)
+
 <div style="text-align: center;">
     <img src="assets/teaser.jpg" width=100% >
 </div>
@@ -78,16 +83,36 @@ python scripts/vqa_demo.py
 
 ### Evaluation
 
+#### Object Manipulation on SimplerEnv
+##### Google Robot Visual Matching
+| Method                                              | Training Data | Pick Coke Can | Move Near | Open / Close Drawer | Average   |
+|-----------------------------------------------------|---------------|---------------|-----------|---------------------|-----------|
+| [Octo-Base](https://arxiv.org/pdf/2405.12213)       | OXE           | 0.170         | 0.042     | 0.227               | 0.168     |
+| [OpenVLA](https://arxiv.org/pdf/2406.09246)         | OXE           | 0.163         | 0.462     | 0.356               | 0.277     |
+| [RoboVLM](https://openreview.net/pdf?id=nfm2qcV1S4) | OXE           | 0.727         | 0.663     | 0.268               | 0.563     |
+| [SpatialVLA](https://arxiv.org/pdf/2501.15830)      | OXE           | 0.810         | 0.696     | **0.593**           | 0.719     |
+| **SoFar**                                           | -             | **0.923**     | **0.917** | 0.403               | **0.749** |
+
+##### Widow-X Visual Matching
+| Method                                              | Training Data | Put Spoon on Towel | Put Carrot on Plate | Stack Green Block on Yellow Block | Put Eggplant in Yellow Basket | Average   |
+|-----------------------------------------------------|---------------|--------------------|---------------------|-----------------------------------|-------------------------------|-----------|
+| [Octo-Base](https://arxiv.org/pdf/2405.12213)       | OXE           | 0.170              | 0.042               | 0.227                             | 0.168                         | 0.160     |
+| [OpenVLA](https://arxiv.org/pdf/2406.09246)         | OXE           | 0.000              | 0.000               | 0.000                             | 0.041                         | 0.010     |
+| [RoboVLM](https://openreview.net/pdf?id=nfm2qcV1S4) | OXE           | 0.208              | 0.250               | 0.083                             | 0.000                         | 0.135     |
+| [SpatialVLA](https://arxiv.org/pdf/2501.15830)      | OXE           | 0.208              | 0.208               | 0.250                             | **0.708**                     | 0.344     |
+| **SoFar**                                           | -             | **0.583**          | **0.667**           | **0.708**                         | 0.375                         | **0.583** |
+
+We evaluate SoFar's performance on two tracks in SimplerEnv, and SoFar achieved SOTA performance in all cases. Due to the independent configuration of the environment, we provided detailed evaluation code in [SimplerEnv-SOFAR](https://github.com/Zhangwenyao1/SimplerEnv-SOFAR).
+
 #### 6-DoF Object Rearrangement Perception on Open6DOR V2
-| Method       | Position Track |          | Rotation Track |          |          | 6-DoF Track |
-|--------------|----------------|----------|----------------|----------|----------|-------------|
-|              | Level 0        | Level 1  | Level 0        | Level 1  | Level 2  | Overall     |
-| GPT-4V       | 46.8           | 39.1     | 9.1            | 6.9      | 11.7     | -           |
-| Dream2Real   | 17.2           | 11.0     | 37.3           | 27.6     | 26.2     | 13.5        |
-| VoxPoser     | 35.6           | 21.7     | -              | -        | -        | -           |
-| Open6DOR-GPT | 78.6           | 60.3     | 45.7           | 32.5     | 49.8     | 35.6        |
-| SoFar-LLaVA  | 86.3           | 57.9     | 62.5           | 30.2     | 67.1     | 40.3        |
-| **SoFar**    | **96.0**       | **81.5** | **68.6**       | **42.2** | **70.1** | **48.7**    |
+| Method                                                   | Position Track |          | Rotation Track |          |          | 6-DoF Track |
+|----------------------------------------------------------|----------------|----------|----------------|----------|----------|-------------|
+|                                                          | Level 0        | Level 1  | Level 0        | Level 1  | Level 2  | Overall     |
+| [Dream2Real](https://arxiv.org/pdf/2312.04533)           | 17.2           | 11.0     | 37.3           | 27.6     | 26.2     | 13.5        |
+| [VoxPoser](https://arxiv.org/pdf/2307.05973)             | 35.6           | 21.7     | -              | -        | -        | -           |
+| [Open6DOR-GPT](https://openreview.net/pdf?id=RclUiexKMt) | 78.6           | 60.3     | 45.7           | 32.5     | 49.8     | 35.6        |
+| SoFar-LLaVA                                              | 86.3           | 57.9     | 62.5           | 30.2     | 67.1     | 40.3        |
+| **SoFar**                                                | **96.0**       | **81.5** | **68.6**       | **42.2** | **70.1** | **48.7**    |
 
 Download the refined dataset following [DATASET.md](./datasets/DATASET.md).
 
@@ -105,15 +130,13 @@ This is reflected in the system prompt: in the observer coordinate system, the Y
 Additionally, for the Open6DOR task, we recommend using small_finetune.pth as the orientation model in [pointso.py](./serve/pointso.py) to achieve better performance.
 
 #### 6-DoF Spatial VQA on 6-DoF SpatialBench
-| Method        | Position (rel.)   | Position (abs.)   | Orientation (rel.)   | Orientation (abs.)   | Total      |
-|---------------|-------------------|-------------------|----------------------|----------------------|------------|
-| GPT-4V        | 37.7              | 32.7              | 36.7                 | 27.5                 | 33.9       |
-| GPT-4o        | 49.4              | 28.4              | 44.2                 | 25.8                 | 36.2       |
-| SpaceLLaVA    | 32.4              | 30.5              | 30.9                 | 24.9                 | 28.2       |
-| SpaceMantis   | 33.6              | 29.2              | 27.2                 | 25.2                 | 28.8       |
-| SpatialBot    | 50.9              | 21.6              | 39.6                 | 22.9                 | 33.7       |
-| RoboPoint     | 43.8              | 30.8              | 33.8                 | 25.8                 | 33.5       |
-| **SoFar**     | **59.6**          | **33.8**          | **54.6**             | **31.3**             | **43.9**   |
+| Method                                         | Position (rel.) | Position (abs.) | Orientation (rel.) | Orientation (abs.) | Total    |
+|------------------------------------------------|-----------------|-----------------|--------------------|--------------------|----------|
+| GPT-4o                                         | 49.4            | 28.4            | 44.2               | 25.8               | 36.2     |
+| [SpaceLLaVA](https://arxiv.org/pdf/2401.12168) | 32.4            | 30.5            | 30.9               | 24.9               | 28.2     |
+| [SpatialBot](https://arxiv.org/pdf/2406.13642) | 50.9            | 21.6            | 39.6               | 22.9               | 33.7     |
+| [RoboPoint](https://arxiv.org/pdf/2406.10721)  | 43.8            | 30.8            | 33.8               | 25.8               | 33.5     |
+| **SoFar**                                      | **59.6**        | **33.8**        | **54.6**           | **31.3**           | **43.9** |
 
 Download the refined dataset following [DATASET.md](./datasets/DATASET.md).
 ```bash
@@ -166,7 +189,7 @@ We evaluated existing spatial perception models on this benchmark dataset.
 Data open source on [Huggingface 6-DoF SpatialBench](https://huggingface.co/datasets/qizekun/6DoF-SpatialBench).
 
 ## TODO
-- [ ] Release the evaluation code for Simpler-Env for Google Robot & Widow-X. (About 1 week)
+- [√] Release the evaluation code for Simpler-Env for Google Robot & Widow-X.
 - [ ] Release the evaluation code for Open6DOR-Libero. (About 2 week)
 - [ ] Release more version of PointSO. (About 2 week)
 - [ ] Release the improved version of OrienText300K. (About 1 month)
