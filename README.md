@@ -189,7 +189,7 @@ We evaluated existing spatial perception models on this benchmark dataset.
 Data open source on [Huggingface 6-DoF SpatialBench](https://huggingface.co/datasets/qizekun/6DoF-SpatialBench).
 
 ## TODO
-- [√] Release the evaluation code for Simpler-Env for Google Robot & Widow-X.
+- [x] Release the evaluation code for Simpler-Env for Google Robot & Widow-X.
 - [ ] Release the evaluation code for Open6DOR-Libero. (About 2 week)
 - [ ] Release more version of PointSO. (About 2 week)
 - [ ] Release the improved version of OrienText300K. (About 1 month)
