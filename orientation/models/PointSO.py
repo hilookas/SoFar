@@ -5,8 +5,8 @@ from orientation.models.CrossModal import TextEncoder
 from orientation.models.transformer import Group, PatchEmbedding, TransformerEncoder
 
 from .build import MODELS
-from orientation.utils.checkpoint import get_missing_parameters_message, get_unexpected_parameters_message
 from orientation.utils.logger import *
+from orientation.utils.checkpoint import get_missing_parameters_message, get_unexpected_parameters_message
 
 
 @MODELS.register_module()

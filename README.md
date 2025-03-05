@@ -145,6 +145,7 @@ python spatialbench/eval_spatialbench.py
 ```
 
 ## PointSO
+The released weights is on [Huggingface-PointSO](https://huggingface.co/qizekun/PointSO), and the code is in the [orientation](./orientation) folder.
 ### Pretrain
 Download the PointMAE as initialization.
 ```bash
@@ -157,7 +158,9 @@ sh train_ddp.sh
 ```
 ### Finetune
 Perpare the Open6DOR finetuning dataset following [DATASET.md](./datasets/DATASET.md).
-Finetune PointSO will significantly improve the performance on Open6DOR rotation track & 6-DoF track.
+The dataset is generated from isaac sim with different assets from Open6DOR.
+Finetune PointSO will significantly improve the performance on Open6DOR rotation track & 6-DoF track. 
+We recommend using this version of the model for the Open6DOR V2 evaluation.
 ```bash
 cd orientation
 sh train_ddp_ft.sh
@@ -172,6 +175,11 @@ We provide multi-view annotations for each object in Objaverse across multiple d
 
 <div style="text-align: center;">
     <img src="assets/data_construction.jpg" width=100% >
+</div>
+
+OrienText300K samples, containing various objects and natural text for interaction.
+<div style="text-align: center;">
+    <img src="assets/orientext300k.jpg" width=100% >
 </div>
 
 Data open source on [Huggingface OrienteText300K](https://huggingface.co/datasets/qizekun/OrienText300K).
