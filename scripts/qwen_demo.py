@@ -1,5 +1,6 @@
 import os
 import json
+import torch
 import warnings
 import numpy as np
 from PIL import Image
@@ -9,7 +10,7 @@ from serve.scene_graph import open6dor_scene_graph
 from segmentation import sam, florence as detection
 from serve.utils import generate_rotation_matrix, get_point_cloud_from_rgbd
 
-from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
+from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
 from serve.qwen_inference import open6dor_parsing, open6dor_spatial_reasoning
 
 warnings.filterwarnings("ignore")
@@ -41,7 +42,9 @@ if __name__ == "__main__":
     sam_model = sam.get_model()
     orientation_model = orientation.get_model()
     qwen_model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        "Qwen/Qwen2.5-VL-3B-Instruct", torch_dtype="auto", device_map="auto"
+        "Qwen/Qwen2.5-VL-7B-Instruct",
+        torch_dtype=torch.bfloat16,
+        attn_implementation="flash_attention_2",
     )
     processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-3B-Instruct")
 

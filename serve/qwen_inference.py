@@ -45,6 +45,8 @@ def open6dor_parsing(qwen_model, processor, image_path, instruction):
     output_text = processor.batch_decode(
         generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
     )
+    output_text = output_text[0].replace('```json', '').replace('```', '')
+    print(output_text)
     info = json.loads(output_text)
     directions = {}
     direction_attributes = []
@@ -102,6 +104,8 @@ def open6dor_spatial_reasoning(qwen_model, processor, image_path, instruction, p
     output_text = processor.batch_decode(
         generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
     )
+    output_text = output_text[0].replace('```json', '').replace('```', '')
+    print(output_text)
     info = json.loads(output_text)
     print(info)
     return info
