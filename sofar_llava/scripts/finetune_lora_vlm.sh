@@ -1,13 +1,13 @@
 #!/bin/bash
 export PYTHONPATH=$(pwd):$PYTHONPATH
 
-deepspeed --include="localhost:0,1,2,3,4,5,6,7" vlm/llava/train/train_mem.py \
+deepspeed --include="localhost:0,1,2,3,4,5,6,7" sofar_llava/llava/train/train_mem.py \
     --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 \
-    --deepspeed ./vlm/scripts/zero3.json \
+    --deepspeed ./sofar_llava/scripts/zero3.json \
     --model_name_or_path lmsys/vicuna-7b-v1.5 \
     --version v1 \
-    --data_path ./vlm/playground/data/sft_vlm.json \
-    --image_folder ./vlm/playground/data/open6dor \
+    --data_path ./sofar_llava/playground/data/sft_vlm.json \
+    --image_folder ./sofar_llava/playground/data/open6dor \
     --vision_tower openai/clip-vit-large-patch14-336 \
     --pretrain_mm_mlp_adapter ./checkpoints/llava-v1.5-7b-pretrain/mm_projector.bin \
     --mm_projector_type mlp2x_gelu \

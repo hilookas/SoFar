@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 packages = [
-    "vlm", "depth", "serve", "open6dor",
+    "sofar_llava", "depth", "serve", "open6dor",
     "orientation", "segmentation", "spatialbench"
 ]
 
@@ -20,8 +20,8 @@ dependencies = [
     "plyfile", "html4vision", "matplotlib==3.8.0", "openai", "argparse",
     "easydict", "numpy<2.0.0", "pyyaml", "scipy", "tensorboardX", "accelerate==0.21.0",
     "timm==0.6.13", "tqdm", "ipdb", "ftfy", "regex", "termcolor", "scikit-learn==1.2.2",
-    "ninja", "supervision", "transformers==4.37.2", "tokenizers==0.15.1", "einops==0.6.1",
-    "httpx[socks]"
+    "ninja", "supervision", "transformers==4.48.3", "tokenizers==0.21.0", "einops==0.6.1",
+    "httpx[socks]", "qwen-vl-utils[decord]==0.0.8"
 ]
 
 [project.urls]

@@ -4,21 +4,22 @@ import warnings
 import numpy as np
 from PIL import Image
 
-from serve import vlm_inference
 from serve import pointso as orientation
 from serve.scene_graph import open6dor_scene_graph
 from segmentation import sam, florence as detection
 from serve.utils import generate_rotation_matrix, get_point_cloud_from_rgbd
 
+from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
+from serve.qwen_inference import open6dor_parsing, open6dor_spatial_reasoning
 
 warnings.filterwarnings("ignore")
 os.makedirs("output", exist_ok=True)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     image_path = "assets/open6dor.png"
-    depth_path = "assets/depth.npy"
-    prompt = "Place the knife behind the clipboard on the table."
+    depth_path = "assets/open6dor.npy"
+    prompt = "Place the knife behind the clipboard on the table. And rotate the handle of the knife to left."
     output_folder = "output"
 
     image = Image.open(image_path).convert("RGB")
@@ -36,19 +37,17 @@ if __name__ == "__main__":
     pcd = pcd.reshape(depth.shape[0], depth.shape[1], 6)[:, :, :3]
 
     print("Load models...")
-    obj_parsing_model, obj_parsing_tokenizer, obj_parsing_image_processor = vlm_inference.get_model(
-        model_path="checkpoints/llava-v1.5-7b-obj-parsing-lora/", model_base="lmsys/vicuna-7b-v1.5", device="cuda"
-    )
-    vlm_model, vlm_tokenizer, vlm_image_processor = vlm_inference.get_model(
-        model_path="checkpoints/llava-v1.5-7b-vlm-lora/", model_base="lmsys/vicuna-7b-v1.5", device="cuda"
-    )
     detection_model = detection.get_model()
     sam_model = sam.get_model()
     orientation_model = orientation.get_model()
+    qwen_model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        "Qwen/Qwen2.5-VL-3B-Instruct", torch_dtype="auto", device_map="auto"
+    )
+    processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-3B-Instruct")
 
     print("Start object parsing...")
-    info = vlm_inference.inference(
-        obj_parsing_model, obj_parsing_tokenizer, obj_parsing_image_processor, image, prompt)
+
+    info = open6dor_parsing(qwen_model, processor, image, prompt)
     print(json.dumps(info, indent=2))
     object_list = [info['picked_object']] + info['related_objects']
 
@@ -67,8 +66,7 @@ if __name__ == "__main__":
         print(node)
 
     print("Start spatial reasoning...")
-    prompt = f"Command: {prompt}picked_object_info: {picked_object_info}other_objects_info: {other_objects_info}"
-    response = vlm_inference.inference(vlm_model, vlm_tokenizer, vlm_image_processor, image, prompt)
+    response = open6dor_spatial_reasoning(qwen_model, processor, image, prompt, picked_object_info, other_objects_info)
     print(response)
 
     init_position = picked_object_dict["center"]

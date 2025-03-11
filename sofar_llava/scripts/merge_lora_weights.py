@@ -1,6 +1,6 @@
 import argparse
-from vlm.llava.model.builder import load_pretrained_model
-from vlm.llava.mm_utils import get_model_name_from_path
+from sofar_llava.llava.model.builder import load_pretrained_model
+from sofar_llava.llava.mm_utils import get_model_name_from_path
 
 
 def merge_lora(args):

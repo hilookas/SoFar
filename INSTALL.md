@@ -26,7 +26,7 @@ pip install --no-build-isolation -e segmentation/GroundingDINO
 # for yolo-world
 pip install inference[yolo-world]==0.9.13
 # for training SoFar-LLaVA
-pip install -e vlm
+pip install -e sofar_llava
 pip install flash-attn --no-build-isolation
 ```
 

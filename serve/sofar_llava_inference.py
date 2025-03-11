@@ -1,11 +1,11 @@
 import json
 import torch
 
-from vlm.llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
-from vlm.llava.conversation import conv_templates, SeparatorStyle
-from vlm.llava.model.builder import load_pretrained_model
-from vlm.llava.utils import disable_torch_init
-from vlm.llava.mm_utils import process_images, tokenizer_image_token, get_model_name_from_path
+from sofar_llava.llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
+from sofar_llava.llava.conversation import conv_templates, SeparatorStyle
+from sofar_llava.llava.model.builder import load_pretrained_model
+from sofar_llava.llava.utils import disable_torch_init
+from sofar_llava.llava.mm_utils import process_images, tokenizer_image_token, get_model_name_from_path
 
 
 def get_model(model_path, model_base, load_8bit=False, load_4bit=False, device="cuda"):

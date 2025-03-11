@@ -6,8 +6,8 @@ import argparse
 
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from vlm.llava.model import *
-from vlm.llava.model.utils import auto_upgrade
+from sofar_llava.llava.model import *
+from sofar_llava.llava.model.utils import auto_upgrade
 
 
 def consolidate_ckpt(src_path, dst_path):

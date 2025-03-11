@@ -145,7 +145,7 @@ python spatialbench/eval_spatialbench.py
 ```
 
 ## PointSO
-The released weights is on [Huggingface-PointSO](https://huggingface.co/qizekun/PointSO), and the code is in the [orientation](./orientation) folder.
+The released weights is on [Huggingface PointSO](https://huggingface.co/qizekun/PointSO), and the code is in the [orientation](./orientation) folder.
 ### Pretrain
 Download the PointMAE as initialization.
 ```bash

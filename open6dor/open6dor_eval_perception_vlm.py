@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 from tqdm import tqdm
 
-from serve import vlm_inference
+from serve import sofar_llava_inference
 from serve import pointso as orientation
 from utils import preprocess_open6dor_image
 from serve.scene_graph import open6dor_scene_graph
@@ -39,7 +39,7 @@ def process_dataset(p):
         pcd = get_point_cloud_from_rgbd(depth, np.array(image), vinvs, projs).cpu().numpy().astype(np.float64)
         pcd = pcd.reshape(depth.shape[0], depth.shape[1], 6)[:, :, :3]
 
-        info = vlm_inference.inference(
+        info = sofar_llava_inference.inference(
             obj_parsing_model, obj_parsing_tokenizer, obj_parsing_image_processor, image, prompt)
         info['related_objects'] = [] if "rot" in p else info['related_objects']
         object_list = [info['picked_object']] + info['related_objects']
@@ -53,7 +53,7 @@ def process_dataset(p):
 
         if "rot" not in p:
             prompt = f"Command: {prompt}picked_object_info: {picked_object_info}other_objects_info: {other_objects_info}"
-            response = vlm_inference.inference(vlm_model, vlm_tokenizer, vlm_image_processor, image, prompt)
+            response = sofar_llava_inference.inference(vlm_model, vlm_tokenizer, vlm_image_processor, image, prompt)
             init_position = picked_object_dict["center"]
             target_position = response["target_position"]
         else:
@@ -90,10 +90,10 @@ def process_dataset(p):
 if __name__ == "__main__":
     dataset_paths = glob.glob("/data/datasets/open6dor_v2/*/*/*/*/")
 
-    obj_parsing_model, obj_parsing_tokenizer, obj_parsing_image_processor = vlm_inference.get_model(
+    obj_parsing_model, obj_parsing_tokenizer, obj_parsing_image_processor = sofar_llava_inference.get_model(
         model_path="checkpoints/llava-v1.5-7b-obj-parsing-lora/", model_base="lmsys/vicuna-7b-v1.5", device="cuda"
     )
-    vlm_model, vlm_tokenizer, vlm_image_processor = vlm_inference.get_model(
+    vlm_model, vlm_tokenizer, vlm_image_processor = sofar_llava_inference.get_model(
         model_path="checkpoints/llava-v1.5-7b-vlm-lora/", model_base="lmsys/vicuna-7b-v1.5", device="cuda"
     )
 
