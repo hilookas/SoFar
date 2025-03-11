@@ -62,11 +62,14 @@ wget -c https://huggingface.co/qizekun/PointSO/resolve/main/base_finetune.pth
 More detailed installation instructions can be found in [INSTALL.md](INSTALL.md).
 
 ## SoFar
-Set OpenAI key:
+Our method is based on mature VLMs such as Qwen, ChatGPT, Gemini, etc., if you have an OpenAI key, you can obtain the service by setting the OpenAI key. Note that gemini-2.0-flash-exp is comparable and even better than the gpt-4o, especially the Open6DOR task.
 ```bash
 export OPENAI_API_KEY=your_openai_key
 ```
-Note that gemini-2.0-flash-exp is comparable and even better than the gpt-4o, especially the Open6DOR task.
+Qwen-VL-2.5 can already handle embodied brain tasks. If you do not have an OpenAI-API Key, you can achieve comparable performance by loading Qwen:
+```bash
+python scripts/qwen_demo.py
+```
 
 ### Demo
 #### 6-DoF Object Rearrangement Demo
