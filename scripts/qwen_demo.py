@@ -42,10 +42,11 @@ if __name__ == "__main__":
     sam_model = sam.get_model()
     orientation_model = orientation.get_model()
     qwen_model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        "Qwen/Qwen2.5-VL-7B-Instruct",
+        "Qwen/Qwen2.5-VL-3B-Instruct",
         torch_dtype=torch.bfloat16,
         attn_implementation="flash_attention_2",
-    )
+        device_map="auto"
+    ).to('cuda')
     processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-3B-Instruct")
 
     print("Start object parsing...")
