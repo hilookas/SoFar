@@ -50,7 +50,6 @@ if __name__ == "__main__":
     processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-3B-Instruct")
 
     print("Start object parsing...")
-
     info = open6dor_parsing(qwen_model, processor, image, prompt)
     print(json.dumps(info, indent=2))
     object_list = [info['picked_object']] + info['related_objects']

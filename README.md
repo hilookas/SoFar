@@ -148,6 +148,14 @@ python spatialbench/eval_spatialbench.py
 ```
 
 ## PointSO
+
+The pipeline of PointSO is as follows:
+1. We generate high-quality, standardized, upright 3D asset datasets [Orientext300K](#orientext300k) through filtering and automatic annotating, and produce corresponding semantic orientations.
+
+2. Train PointSO by adding random rotation, single-view interference, and Gaussian noise (set in [config.yaml](./orientation/cfgs/train/base.yaml)) to 3D assets.
+
+3. Inference with PointSO, in the real world, most point cloud data are partial and in free orientations.
+
 The released weights is on [Huggingface PointSO](https://huggingface.co/qizekun/PointSO), and the code is in the [orientation](./orientation) folder.
 ### Pretrain
 Download the PointMAE as initialization.
@@ -186,7 +194,15 @@ OrienText300K samples, containing various objects and natural text for interacti
 </div>
 
 Data open source on [Huggingface OrienteText300K](https://huggingface.co/datasets/qizekun/OrienText300K).
+
+We also provided the code for rendering multi-views with Blender (version: 4.2.0) in [render_views.py](./datasets/orentext300k_render_views.py), so that you can reproduce or use it on your own dataset. 
+This rendering code has undergone very complex debugging and testing. 
+We would appreciate it if this code is useful to you and cite our paper.
+
+
 ### Open6DOR V2
+A challenging and comprehensive benchmark for open-instruction 6-DoF object rearrangement tasks.
+
 We removed the erroneous data from Open6DOR V1 and eliminated parts that required manual judgment to facilitate replication.
 Open6DOR V2 contains ~4500 tasks for 6-DoF object rearrangement & spatial relationship evaluation.
 
@@ -202,6 +218,7 @@ Data open source on [Huggingface 6-DoF SpatialBench](https://huggingface.co/data
 
 ## TODO
 - [x] Release the evaluation code for Simpler-Env for Google Robot & Widow-X.
+- [x] Release the inference code with Qwen-VL-2.5.
 - [ ] Release the evaluation code for Open6DOR-Libero. (About 2 week)
 - [ ] Release more version of PointSO. (About 2 week)
 - [ ] Release the improved version of OrienText300K. (About 1 month)
