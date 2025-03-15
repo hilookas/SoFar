@@ -70,7 +70,8 @@ export OPENAI_API_KEY=your_openai_key
 Qwen-VL-2.5 can already handle embodied brain tasks.
 If you do not have an OpenAI-API Key, you can achieve comparable performance by loading **Qwen**:
 ```bash
-pip install qwen-vl-utils[decord]==0.0.8
+pip install qwen-vl-utils[decord]==0.0.8 triton
+pip install flash-attn --no-build-isolation
 python scripts/qwen_demo.py
 ```
 

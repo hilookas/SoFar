@@ -30,6 +30,7 @@ pip install -e sofar_llava
 pip install flash-attn --no-build-isolation
 # for qwen inference
 pip install qwen-vl-utils[decord]==0.0.8
+pip install flash-attn --no-build-isolation
 ```
 
 Download checkpoints:
