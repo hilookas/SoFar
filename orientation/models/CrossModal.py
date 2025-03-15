@@ -34,7 +34,7 @@ class TextEncoder(nn.Module):
         self.embed_dim = self.transformer.width
 
     def forward(self, text):
-        prompt_text = clip.tokenize(text, context_length=77).cuda()
+        prompt_text = clip.tokenize(text, context_length=77).to(device=next(self.parameters()).device)
 
         b, _ = prompt_text.shape
         x = self.token_embedding(prompt_text).type(self.dtype)  # [batch_size, n_ctx, d_model]

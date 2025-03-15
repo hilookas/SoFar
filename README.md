@@ -2,7 +2,7 @@
 
 We present SoFar, the first 6-DoF system for spatial reasoning and robotic manipulation.
 
-We introduce the concept of semantic orientation, representing the object orientation condition on open vocabulary language.
+We introduce the concept of **semantic orientation**, representing the object orientation condition on open vocabulary language.
 
 [Zekun Qi](https://qizekun.github.io/) *, [Wenyao Zhang]() *, [Yufei Ding](https://selina2023.github.io/) *, [Runpei Dong](https://runpeidong.web.illinois.edu/), [Xinqiang Yu](), [Jingwen Li](), [Lingyun Xu](), [Baoyu Li](https://baoyuli.github.io/), [Xialin He](https://xialin-he.github.io/), [Guofan Fan](https://github.com/Asterisci/), [Jiazhao Zhang](https://jzhzhang.github.io/), [Jiawei He](https://jiaweihe.com/), [Jiayuan Gu](https://jiayuan-gu.github.io/), [Xin Jin](http://home.ustc.edu.cn/~jinxustc/), [Kaisheng Ma](http://group.iiis.tsinghua.edu.cn/~maks/leader.html), [Zhizheng Zhang](https://scholar.google.com/citations?user=X7M0I8kAAAAJ&hl=en), [He Wang](https://hughw19.github.io/) and [Li Yi](https://ericyi.github.io/).
 
@@ -39,7 +39,7 @@ We introduce the concept of semantic orientation, representing the object orient
 ## Quick-Start
 Setup environment:
 ```bash
-conda create -n sofar python=3.10 -y
+conda create -n sofar python=3.12 -y
 conda activate sofar
 
 git clone https://github.com/qizekun/SoFar.git
@@ -60,14 +60,17 @@ wget -c https://huggingface.co/qizekun/PointSO/resolve/main/small.pth
 wget -c https://huggingface.co/qizekun/PointSO/resolve/main/base_finetune.pth
 ```
 More detailed installation instructions can be found in [INSTALL.md](INSTALL.md).
+Note that CPU devices inference for SoFar are also supported, such as **MacOS, Windows**, etc.
 
 ## SoFar
 Our method is based on mature VLMs such as Qwen, ChatGPT, Gemini, etc., if you have an OpenAI key, you can obtain the service by setting the OpenAI key. Note that gemini-2.0-flash-exp is comparable and even better than the gpt-4o, especially the Open6DOR task.
 ```bash
 export OPENAI_API_KEY=your_openai_key
 ```
-Qwen-VL-2.5 can already handle embodied brain tasks. If you do not have an OpenAI-API Key, you can achieve comparable performance by loading Qwen:
+Qwen-VL-2.5 can already handle embodied brain tasks.
+If you do not have an OpenAI-API Key, you can achieve comparable performance by loading **Qwen**:
 ```bash
+pip install qwen-vl-utils[decord]==0.0.8
 python scripts/qwen_demo.py
 ```
 
@@ -108,7 +111,7 @@ python scripts/vqa_demo.py
 
 We evaluate SoFar's performance on two tracks in SimplerEnv, and SoFar achieved SOTA performance in all cases. Due to the independent configuration of the environment, we provided detailed evaluation code in [SimplerEnv-SOFAR](https://github.com/Zhangwenyao1/SimplerEnv-SOFAR).
 
-#### 6-DoF Object Rearrangement Perception on Open6DOR V2
+#### 6-DoF Object Rearrangement on Open6DOR V2
 | Method                                                   | Position Track |          | Rotation Track |          |          | 6-DoF Track |
 |----------------------------------------------------------|----------------|----------|----------------|----------|----------|-------------|
 |                                                          | Level 0        | Level 1  | Level 0        | Level 1  | Level 2  | Overall     |
@@ -127,11 +130,13 @@ python open6dor_eval_perception.py
 python eval_open6dor.py
 ```
 
-Note that Open6DOR uses the observer's perspective, which means it is oriented relative to the robotic arm. 
+Note that Open6DOR uses the **observer's perspective**, which means it is oriented relative to the robotic arm. 
 This implies that the X-axis and Y-axis of the observer coordinate system are opposite to those of the robotic arm's base coordinate system. 
 This is reflected in the system prompt: in the observer coordinate system, the Y-axis extends from left to right, and the X-axis extends from far to near.
 
-Additionally, for the Open6DOR task, we recommend using small_finetune.pth as the orientation model in [pointso.py](./serve/pointso.py) to achieve better performance.
+Additionally, for the Open6DOR task, we recommend using **small_finetune.pth** as the orientation model in [pointso.py](./serve/pointso.py) to achieve better performance.
+
+Open6DOR V2 execution environment & evaluation is available at [Open6DOR-Libero](https://github.com/Zhangwenyao1/Open6DOR_V2_Execution), you can see the readme for more instructions.
 
 #### 6-DoF Spatial VQA on 6-DoF SpatialBench
 | Method                                         | Position (rel.) | Position (abs.) | Orientation (rel.) | Orientation (abs.) | Total    |
@@ -171,7 +176,7 @@ sh train_ddp.sh
 Perpare the Open6DOR finetuning dataset following [DATASET.md](./datasets/DATASET.md).
 The dataset is generated from isaac sim with different assets from Open6DOR.
 Finetune PointSO will significantly improve the performance on Open6DOR rotation track & 6-DoF track. 
-We recommend using this version of the model for the Open6DOR V2 evaluation.
+We recommend using the finetuned version of PointSO for the Open6DOR V2 evaluation.
 ```bash
 cd orientation
 sh train_ddp_ft.sh
@@ -179,7 +184,8 @@ sh train_ddp_ft.sh
 
 ## Datasets & Benchmarks
 ### OrienText300K
-We obtained the OrienText300K dataset by rendering multi-views of Objaverse and annotating with ChatGPT, including the filtering of Objaverse 1.0, 350K orientation-text pairs, and 8M multi-view images.  The complete multi-view data will be uploaded.
+We obtained the OrienText300K dataset by rendering multi-views of Objaverse and annotating with ChatGPT, including the filtering of Objaverse 1.0, 350K orientation-text pairs, and 8M multi-view images.
+The complete multi-view data will be uploaded.
 
 In addition, if your work requires filtering 3D data, the [attributes.zip](https://huggingface.co/datasets/qizekun/OrienText300K/blob/main/attributes.zip) we use to filter OrienText300K may be helpful for your work. 
 We provide multi-view annotations for each object in Objaverse across multiple dimensions, removing low-quality, meaningless, noise, and 3D assets containing useless data.
@@ -195,7 +201,7 @@ OrienText300K samples, containing various objects and natural text for interacti
 
 Data open source on [Huggingface OrienteText300K](https://huggingface.co/datasets/qizekun/OrienText300K).
 
-We also provided the code for rendering multi-views with Blender (version: 4.2.0) in [render_views.py](./datasets/orentext300k_render_views.py), so that you can reproduce or use it on your own dataset. 
+We also provide the code for rendering multi-views with Blender (version: 4.2.0) in [render_views.py](./datasets/orentext300k_render_views.py), so that you can reproduce or use it on your own dataset. 
 This rendering code has undergone very complex debugging and testing. 
 We would appreciate it if this code is useful to you and cite our paper.
 
@@ -203,7 +209,7 @@ We would appreciate it if this code is useful to you and cite our paper.
 ### Open6DOR V2
 A challenging and comprehensive benchmark for open-instruction 6-DoF object rearrangement tasks.
 
-We removed the erroneous data from Open6DOR V1 and eliminated parts that required manual judgment to facilitate replication.
+We remove the erroneous data from Open6DOR V1 and eliminated parts that required manual judgment to facilitate replication.
 Open6DOR V2 contains ~4500 tasks for 6-DoF object rearrangement & spatial relationship evaluation.
 
 Data open source on [Huggingface Open6DOR V2](https://huggingface.co/datasets/qizekun/Open6DOR_V2).
@@ -219,7 +225,8 @@ Data open source on [Huggingface 6-DoF SpatialBench](https://huggingface.co/data
 ## TODO
 - [x] Release the evaluation code for Simpler-Env for Google Robot & Widow-X.
 - [x] Release the inference code with Qwen-VL-2.5.
-- [ ] Release the evaluation code for Open6DOR-Libero. (About 2 week)
+- [x] Add cpu devices inference support, such as MacOS.
+- [x] Release the evaluation code for Open6DOR-Libero.
 - [ ] Release more version of PointSO. (About 2 week)
 - [ ] Release the improved version of OrienText300K. (About 1 month)
 - [ ] Release gradio demo for SoFar & PointSO. (About 1 month)
