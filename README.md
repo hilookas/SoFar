@@ -126,9 +126,9 @@ Download the refined dataset following [DATASET.md](./datasets/DATASET.md).
 
 ```bash
 # Predict on Open6DOR dataset
-python open6dor_eval_perception.py
+python open6dor/open6dor_eval_perception.py
 # Evaluate the metrics
-python eval_open6dor.py
+python open6dor/eval_open6dor.py
 ```
 
 Note that Open6DOR uses the **observer's perspective**, which means it is oriented relative to the robotic arm. 
