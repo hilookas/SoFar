@@ -81,7 +81,11 @@ def evaluate_spatial_rot(task_paths, eval_file):
         else:
             pred_rotation = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
-        pred_quaternion = R.from_matrix(pred_rotation).as_quat()
+        try:
+            pred_quaternion = R.from_matrix(pred_rotation).as_quat()
+        except:
+            pred_quaternion = np.array([1, 0, 0, 0])
+
         if np.isnan(pred_quaternion).any():
             pred_quaternion = np.array([1, 0, 0, 0])
         deviation = evaluator.evaluate_rot(config_file, pred_quaternion)
@@ -143,7 +147,11 @@ def evaluate_spatial_6dof(task_paths, eval_file):
             pred_rotation = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
             pred_position = [0, 0, 0]
 
-        pred_quaternion = R.from_matrix(pred_rotation).as_quat()
+        try:
+            pred_quaternion = R.from_matrix(pred_rotation).as_quat()
+        except:
+            pred_quaternion = np.array([1, 0, 0, 0])
+
         if np.isnan(pred_quaternion).any():
             pred_quaternion = np.array([1, 0, 0, 0])
         deviation = evaluator.evaluate_rot(config_file, pred_quaternion)
