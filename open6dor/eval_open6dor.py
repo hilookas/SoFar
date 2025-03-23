@@ -10,7 +10,6 @@ def evaluate_spatial_pos(task_paths, eval_file):
     eval_dict = {}
     level1 = []
     level2 = []
-    level3 = []
     all = []
     for config_file in task_paths:
         task_dir = config_file.split("/")[:-1]
@@ -44,16 +43,14 @@ def evaluate_spatial_pos(task_paths, eval_file):
             success = evaluator.evaluate_posi(target_position, pos_tag, sel_pos_all=sel_pos_all)
             level2.append(success)
         else:
-            sel_pos = init_obj_pos[0]
-            success = evaluator.evaluate_posi(target_position, pos_tag, sel_pos)
-            level3.append(success)
+            success = 0
+            print('ERROR: position tag not found')
         all.append(success)
         success = 1 if success else 0
         eval_dict[task] = {"success": success, "proposal": pred_position}
-    print("level1 acc:", sum(level1) / len(level1))
-    print("level2 acc:", sum(level2) / len(level2))
-    print("level3 acc:", sum(level3) / (len(level3) + 1e-5))
-    print("all acc:", sum(all) / len(all))
+    print("level1 acc:", sum(level1) / (len(level1) + 1e-5))
+    print("level2 acc:", sum(level2) / (len(level2) + 1e-5))
+    print("all acc:", sum(all) / (len(all) + 1e-5))
 
     with open(eval_file, "w") as f:
         json.dump(eval_dict, f, indent=4)
@@ -112,10 +109,10 @@ def evaluate_spatial_rot(task_paths, eval_file):
             if rot_tag_level == 2:
                 level3.append(0)
             all.append(0)
-    print("level1 acc:", sum(level1) / len(level1))
-    print("level2 acc:", sum(level2) / len(level2))
-    print("level3 acc:", sum(level3) / len(level3))
-    print("all acc:", sum(all) / len(all))
+    print("level1 acc:", sum(level1) / (len(level1) + 1e-5))
+    print("level2 acc:", sum(level2) / (len(level2) + 1e-5))
+    print("level3 acc:", sum(level3) / (len(level3) + 1e-5))
+    print("all acc:", sum(all) / (len(all) + 1e-5))
 
     with open(eval_file, "w") as f:
         json.dump(eval_dict, f, indent=4)
@@ -193,9 +190,9 @@ def evaluate_spatial_6dof(task_paths, eval_file):
             all.append(1)
         else:
             all.append(0)
-    print("6-dof pos acc:", sum(pos) / len(pos))
-    print("6-dof rot acc:", sum(rot) / len(rot))
-    print("6-dof all acc:", sum(all) / len(all))
+    print("6-dof pos acc:", sum(pos) / (len(pos) + 1e-5))
+    print("6-dof rot acc:", sum(rot) / (len(rot) + 1e-5))
+    print("6-dof all acc:", sum(all) / (len(all) + 1e-5))
 
     with open(eval_file, "w") as f:
         json.dump(eval_dict, f, indent=4)
