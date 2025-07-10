@@ -6,13 +6,13 @@ from easydict import EasyDict
 from orientation.datasets.utils import pc_norm
 from orientation.models.PointSO import PointSO
 
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-CFG_PATH = "orientation/cfgs/train/small.yaml"
-CHECKPOINT_PATH = "checkpoints/small.pth"
+DEVICE = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
+CFG_PATH = "/home/chq/SimplerEnv-SOFAR/SoFar/orientation/cfgs/train/small.yaml"
+CHECKPOINT_PATH = "/home/chq/SimplerEnv-SOFAR/SoFar/checkpoints/small.pth"
 
 # for Open6DOR tasks
-# CFG_PATH = "orientation/cfgs/train/base.yaml"
-# CHECKPOINT_PATH = "checkpoints/base_finetune.pth"
+# CFG_PATH = "SoFar/orientation/cfgs/train/base.yaml"
+# CHECKPOINT_PATH = "SoFar/checkpoints/base_finetune.pth"
 
 
 def get_model():

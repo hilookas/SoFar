@@ -7,12 +7,12 @@ import torch
 import torchvision
 from groundingdino.util.inference import Model
 
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+DEVICE = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
 # GroundingDINO config and checkpoint
-# GROUNDING_DINO_CONFIG_PATH = "segmentation/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
-# GROUNDING_DINO_CHECKPOINT_PATH = "checkpoints/groundingdino_swint_ogc.pth"
-GROUNDING_DINO_CONFIG_PATH = "segmentation/GroundingDINO/groundingdino/config/GroundingDINO_SwinB.py"
-GROUNDING_DINO_CHECKPOINT_PATH = "checkpoints/groundingdino_swinb_cogcoor.pth"
+# GROUNDING_DINO_CONFIG_PATH = "SoFar/segmentation/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+# GROUNDING_DINO_CHECKPOINT_PATH = "SoFar/checkpoints/groundingdino_swint_ogc.pth"
+GROUNDING_DINO_CONFIG_PATH = "/home/chq/SimplerEnv-SOFAR/SoFar/segmentation/GroundingDINO/groundingdino/config/GroundingDINO_SwinB.py"
+GROUNDING_DINO_CHECKPOINT_PATH = "/home/chq/SimplerEnv-SOFAR/SoFar/checkpoints/groundingdino_swinb_cogcoor.pth"
 
 
 def get_model():

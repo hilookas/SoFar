@@ -11,8 +11,8 @@ from depth.metric_3d_v2.utils.do_test import transform_test_data_scalecano, get_
 
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-CFG_PATH = "depth/metric_3d_v2/configs/HourglassDecoder/vit.raft5.large.py"
-CHECKPOINT_PATH = "checkpoints/metric_depth_vit_large_800k.pth"
+CFG_PATH = "SoFar/depth/metric_3d_v2/configs/HourglassDecoder/vit.raft5.large.py"
+CHECKPOINT_PATH = "SoFar/checkpoints/metric_depth_vit_large_800k.pth"
 
 
 def get_model():

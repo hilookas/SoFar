@@ -12,7 +12,6 @@ from torchvision.transforms.functional import resize, to_pil_image  # type: igno
 from copy import deepcopy
 from typing import Tuple
 
-
 class ResizeLongestSide:
     """
     Resizes images to longest side 'target_length', as well as provides

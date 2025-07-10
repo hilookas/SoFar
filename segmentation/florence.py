@@ -10,7 +10,7 @@ from transformers import AutoModelForCausalLM, AutoProcessor
 from transformers.dynamic_module_utils import get_imports
 
 
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+DEVICE = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
 # florance-2 checkpoint
 FLORENCE_CHECKPOINT = "microsoft/Florence-2-base"
 FLORENCE_OPEN_VOCABULARY_DETECTION_TASK = '<OPEN_VOCABULARY_DETECTION>'
@@ -60,7 +60,7 @@ def run_florence_inference(
 def get_detections(image, obj_list, florence_model, output_folder="output", single=False):
 
     model, processor = florence_model
-
+    model.to('cuda:2')
     detections_list = []
     for i in range(len(obj_list)):
         obj = obj_list[i]

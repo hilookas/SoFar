@@ -7,7 +7,7 @@ from PIL import Image
 from openai import OpenAI
 from serve.system_prompts import *
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(base_url="https://openai.arnotho.com/v1",api_key=os.getenv("OPENAI_API_KEY"))
 # gemini-2.0-flash-exp is comparable and even better than the gpt-4o
 
 

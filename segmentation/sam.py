@@ -5,11 +5,10 @@ import supervision as sv
 
 import torch
 from segment_anything import sam_model_registry, SamPredictor
-
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+DEVICE = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
 # Segment-Anything checkpoint
 SAM_ENCODER_VERSION = "vit_h"
-SAM_CHECKPOINT_PATH = "checkpoints/sam_vit_h_4b8939.pth"
+SAM_CHECKPOINT_PATH = "/home/chq/SimplerEnv-SOFAR/SoFar/checkpoints/sam_vit_h_4b8939.pth"
 
 
 def get_model():
